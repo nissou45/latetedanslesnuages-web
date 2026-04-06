@@ -1,4 +1,6 @@
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { inscription } from "../api/auth";
 
 type FormData = {
   nom: string;
@@ -8,6 +10,7 @@ type FormData = {
 };
 
 export default function Inscription() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -15,8 +18,15 @@ export default function Inscription() {
     formState: { errors },
   } = useForm<FormData>();
 
-  const onSubmit = (data: FormData) => {
-    console.log("Inscription :", data);
+  const onSubmit = async (data: FormData) => {
+    try {
+      const res = await inscription(data.nom, data.email, data.password);
+      localStorage.setItem("token", res.token);
+      localStorage.setItem("user", JSON.stringify(res.user));
+      navigate("/mon-espace");
+    } catch {
+      alert("Cet email est déjà utilisé !");
+    }
   };
 
   return (

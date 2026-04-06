@@ -1,4 +1,6 @@
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { connexion } from "../api/auth";
 
 type FormData = {
   email: string;
@@ -6,14 +8,22 @@ type FormData = {
 };
 
 export default function Connexion() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>();
 
-  const onSubmit = (data: FormData) => {
-    console.log("Connexion :", data);
+  const onSubmit = async (data: FormData) => {
+    try {
+      const res = await connexion(data.email, data.password);
+      localStorage.setItem("token", res.token);
+      localStorage.setItem("user", JSON.stringify(res.user));
+      navigate("/mon-espace");
+    } catch {
+      alert("Email ou mot de passe incorrect !");
+    }
   };
 
   return (
