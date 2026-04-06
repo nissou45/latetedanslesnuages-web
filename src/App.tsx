@@ -4,6 +4,7 @@ import Footer from "./components/Footer";
 import Accueil from "./pages/Accueil";
 import Prestations from "./pages/Prestations";
 import Contact from "./pages/Contact";
+import RendezVous from "./pages/RendezVous";
 
 export default function App() {
   return (
@@ -14,7 +15,7 @@ export default function App() {
           <Route path="/" element={<Accueil />} />
           <Route path="/prestations" element={<Prestations />} />{" "}
           <Route path="/contact" element={<Contact />} />
-          <Route path="/rendez-vous" element={<div>RDV</div>} />
+          <Route path="/rendez-vous" element={<RendezVous />} />
         </Routes>
       </main>
       <Footer />
