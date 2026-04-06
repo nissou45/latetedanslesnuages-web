@@ -1,18 +1,30 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
-
-const links = [
-  { to: "/", label: "Accueil" },
-  { to: "/prestations", label: "Prestations" },
-  { to: "/contact", label: "Contact" },
-  { to: "/rendez-vous", label: "Prendre RDV" },
-  { to: "/inscription", label: "S'inscrire" },
-  { to: "/connexion", label: "Connexion" },
-];
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+  const isConnected = !!localStorage.getItem("token");
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/connexion");
+  };
+
+  const links = [
+    { to: "/", label: "Accueil" },
+    { to: "/prestations", label: "Prestations" },
+    { to: "/contact", label: "Contact" },
+    { to: "/rendez-vous", label: "Prendre RDV" },
+    ...(isConnected
+      ? [{ to: "/mon-espace", label: `Mon espace` }]
+      : [
+          { to: "/inscription", label: "S'inscrire" },
+          { to: "/connexion", label: "Connexion" },
+        ]),
+  ];
 
   return (
     <header className="flex flex-col items-center text-center pt-4 px-4">
@@ -25,7 +37,7 @@ export default function Header() {
       </p>
 
       {/* DESKTOP NAV */}
-      <nav className="hidden md:flex gap-2 mt-4 flex-wrap justify-center">
+      <nav className="hidden md:flex gap-2 mt-4 flex-wrap justify-center items-center">
         {links.map(({ to, label }) => (
           <NavLink
             key={to}
@@ -38,6 +50,14 @@ export default function Header() {
             {label}
           </NavLink>
         ))}
+        {isConnected && (
+          <button
+            onClick={handleLogout}
+            className="px-4 py-2 rounded-full text-gris-clair text-sm hover:bg-rose-poudre transition-all"
+          >
+            Déconnexion
+          </button>
+        )}
       </nav>
 
       {/* MOBILE HAMBURGER */}
@@ -66,6 +86,14 @@ export default function Header() {
               {label}
             </NavLink>
           ))}
+          {isConnected && (
+            <button
+              onClick={handleLogout}
+              className="px-4 py-3 rounded-xl text-gris-clair text-sm text-left hover:bg-rose-poudre transition-all"
+            >
+              Déconnexion
+            </button>
+          )}
         </nav>
       )}
     </header>
