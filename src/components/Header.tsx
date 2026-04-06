@@ -18,6 +18,9 @@ export default function Header() {
           { to: "/prestations", label: "Prestations" },
           { to: "/contact", label: "Contact" },
           { to: "/rendez-vous", label: "Prendre RDV" },
+          { to: "/inscription", label: "S'inscrire" },
+
+          { to: "/connexion", label: "Connexion" },
         ].map(({ to, label }) => (
           <NavLink
             key={to}

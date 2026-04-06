@@ -29,7 +29,7 @@ export default function RendezVous() {
           <p className="text-gris-clair mb-4">
             Vous avez une question ou une demande particulière ?
           </p>
-          a
+
           <a
             href="https://wa.me/33656750771"
             target="_blank"
