@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Accueil from "./pages/Accueil";
 import Prestations from "./pages/Prestations";
+import Contact from "./pages/Contact";
 
 export default function App() {
   return (
@@ -12,7 +13,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Accueil />} />
           <Route path="/prestations" element={<Prestations />} />{" "}
-          <Route path="/contact" element={<div>Contact</div>} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/rendez-vous" element={<div>RDV</div>} />
         </Routes>
       </main>
